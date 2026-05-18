@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2024b-blue.svg)](https://www.mathworks.com/products/matlab.html)
 [![Paper](https://img.shields.io/badge/paper-AIIG%202026-orange.svg)](https://doi.org/10.xxxx/xxxxx)
-[![DOI](https://img.shields.io/badge/DOI-pending-lightgrey.svg)](https://doi.org/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8475.svg)](https://doi.org/10.5281/zenodo.8475)
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
 
 A reproducible MATLAB pipeline for shear-wave velocity ($V_s$) prediction from conventional well logs (GR, RHOB, NPHI, PHIE, $V_p$). The framework combines four heterogeneous base learners (PNN, MLFFNN, DFFNN, 1D-CNN) with three meta-learner variants (I-CNN stacker, **Ridge stacker**, Hybrid Multi-Scale Feature-Fusion CNN), integrated uncertainty quantification (Monte Carlo Dropout), and out-of-distribution (OOD) safeguards with physical clipping.
@@ -578,7 +578,7 @@ https://github.com/rcw3712/VsPrediction-Stacking/issues
 
 We thank the operators of Field RCW for providing well-log access under confidentiality terms, and the geophysics community for the foundational empirical relations [Castagna et al., 1985; Greenberg and Castagna, 1992] that underpin the indirect validation framework. The reviewers of *Artificial Intelligence in Geosciences* are gratefully acknowledged for their constructive feedback.
 
-This work was supported by [insert funding source, grant number, year] *(please complete before final publication)*.
+This work was supported by Kemdiktisaintek Indonesia with number contract 357/UN26.21/PN/2026.
 
 The open-source community is also acknowledged: the pipeline builds on MATLAB's Deep Learning Toolbox, Statistics and Machine Learning Toolbox, and the SHAP attribution implementation inspired by [Lundberg and Lee, 2017](https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html).
 
