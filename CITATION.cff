@@ -1,0 +1,79 @@
+# Citation File Format v1.2.0 — used by GitHub's automatic citation widget.
+# Reference: https://citation-file-format.github.io/
+
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite both the software and the accompanying paper."
+title: "VsPrediction-Stacking: A MATLAB pipeline for shear-wave velocity prediction with stacking ensemble and OOD safeguards"
+abstract: >
+  Reproducible MATLAB pipeline for shear-wave velocity prediction from conventional well logs
+  using stacking ensemble of probabilistic, feedforward, and convolutional neural networks
+  with Ridge meta-learning, Monte Carlo Dropout uncertainty quantification, and out-of-
+  distribution safeguards. Demonstrates that linear stacking outperforms deep meta-learning on
+  small tabular geological datasets, and identifies rock-physics regime mismatch as a structural
+  failure mode of statistical OOD detection.
+type: software
+version: "1.0.0"
+date-released: "2026-05-16"
+url: "https://github.com/rcw3712/VsPrediction-Stacking"
+repository-code: "https://github.com/rcw3712/VsPrediction-Stacking"
+license: MIT
+keywords:
+  - shear-wave velocity prediction
+  - stacking ensemble
+  - multi-scale convolutional neural network
+  - ridge regression
+  - uncertainty quantification
+  - out-of-distribution detection
+  - well-log analysis
+  - rock-physics regime mismatch
+
+authors:
+  - family-names: Wibowo
+    given-names: Rahmat Catur
+    email: rahmat.caturwibowo@eng.unila.ac.id
+    affiliation: "Geological Engineering Department, Universitas Lampung, Indonesia"
+    orcid: "https://orcid.org/0000-0003-2754-1803"
+  - family-names: Handoyo
+    affiliation: "Geophysics Engineering, Institut Teknologi Sumatera, Indonesia"
+  - family-names: Kumalasari
+    given-names: Isti Nur
+    affiliation: "Geophysics Engineering Department, Universitas Lampung, Indonesia"
+  - family-names: Rambe
+    given-names: Sibgha Alfirdausi
+    affiliation: "Geophysics Engineering Department, Universitas Lampung, Indonesia"
+  - family-names: Winardhy
+    given-names: Ignatius Sonny
+    affiliation: "Exploration & Engineering Seismology Research Group, Faculty of Mining and Petroleum Engineering, Institut Teknologi Bandung, Indonesia"
+  - family-names: Amijaya
+    given-names: Hendra
+    affiliation: "Geological Engineering Department, Universitas Gadjah Mada, Indonesia"
+  - family-names: Normansyah
+    affiliation: "Pertamina Hulu Energi Offshore Northwest Java, Jakarta, Indonesia"
+  - family-names: Sarkowi
+    given-names: Muh
+    affiliation: "Geophysics Engineering Department, Universitas Lampung, Indonesia"
+
+# Companion paper — primary scientific reference
+preferred-citation:
+  type: article
+  title: "Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework"
+  journal: "Artificial Intelligence in Geosciences"
+  year: 2026
+  doi: "10.xxxx/xxxxx"   # TODO: update with assigned DOI on acceptance
+  publisher:
+    name: "KeAi Communications / Elsevier"
+  authors:
+    - family-names: Wibowo
+      given-names: Rahmat Catur
+    - family-names: Handoyo
+    - family-names: Kumalasari
+      given-names: Isti Nur
+    - family-names: Rambe
+      given-names: Sibgha Alfirdasui
+    - family-names: Winardhy
+      given-names: Ignatius Sonny
+    - family-names: Amijaya
+      given-names: Hendra
+    - family-names: Normansyah
+    - family-names: Sarkowi
+      given-names: Muh
