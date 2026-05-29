@@ -12,7 +12,7 @@ A reproducible MATLAB pipeline for shear-wave velocity ($V_s$) prediction from c
 
 This repository accompanies the paper:
 
-> Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., Sarkowi, M. (2026). *Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework.* **Artificial Intelligence in Geosciences**. DOI: [pending].
+> Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., Sarkowi, M. (2026). *Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework.* **Artificial Intelligence in Geosciences**. DOI: https://doi.org/10.5281/zenodo.20441222.
 
 -----
 
