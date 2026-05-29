@@ -5,16 +5,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2024b-blue.svg)](https://www.mathworks.com/products/matlab.html)
 [![Paper](https://img.shields.io/badge/paper-AIIG%202026-orange.svg)](https://doi.org/10.xxxx/xxxxx)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8475.svg)](https://doi.org/10.5281/zenodo.8475)
+[![DOI](https://img.shields.io/badge/DOI-pending-lightgrey.svg)](https://doi.org/)
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
 
 A reproducible MATLAB pipeline for shear-wave velocity ($V_s$) prediction from conventional well logs (GR, RHOB, NPHI, PHIE, $V_p$). The framework combines four heterogeneous base learners (PNN, MLFFNN, DFFNN, 1D-CNN) with three meta-learner variants (I-CNN stacker, **Ridge stacker**, Hybrid Multi-Scale Feature-Fusion CNN), integrated uncertainty quantification (Monte Carlo Dropout), and out-of-distribution (OOD) safeguards with physical clipping.
 
 This repository accompanies the paper:
 
-> Wibowo, R.C., Handoyo, Kumalasari, I.N., Rambe, S.A., Winardhy, I.S., Amijaya, H., Normansyah, Sarkowi, M. (2026). *Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework.* **Artificial Intelligence in Geosciences**. DOI: [pending].
+> Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., Sarkowi, M. (2026). *Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework.* **Artificial Intelligence in Geosciences**. DOI: [pending].
 
----
+-----
 
 ## 📋 Table of Contents
 
@@ -35,7 +35,7 @@ This repository accompanies the paper:
 - [Contact](#-contact)
 - [Acknowledgments](#-acknowledgments)
 
----
+-----
 
 ## 🌍 Overview
 
@@ -48,38 +48,36 @@ Reliable shear-wave velocity logging supports reservoir characterization, AVO in
 **The pipeline implements:**
 
 1. **Data ingestion & preprocessing** — LAS / Excel reader, IQR + Z-score outlier detection, kNN imputation, Savitzky-Golay denoising, z-score normalization, depth resampling
-2. **Feature selection** — mRMR (with target binning for regression), LASSO with 10-fold CV, SHAP attribution, and four-scenario ablation
-3. **Base learners** — Probabilistic Neural Network (PNN), Multi-Layer Feedforward Neural Network (MLFFNN), Deep Feedforward Neural Network (DFFNN), 1D Convolutional Neural Network (CNN1D)
-4. **Meta-learners** — I-CNN stacker (baseline), **Ridge stacker (deployment model)**, Hybrid Multi-Scale Feature-Fusion CNN (architectural novelty)
-5. **Hyperparameter optimization** — Bayesian Optimization with Gaussian Process surrogate, 5-fold cross-validation, validation-loss early stopping
-6. **Safety layer** — Monte Carlo Dropout uncertainty quantification (T = 200), OOD detection (|z| > 3), physical clipping ([0.2, 4.5] km/s)
-7. **Deployment & indirect validation** — Vp–Vs crossplot vs Castagna & Greenberg-Castagna, geomechanical post-processing (ν, G, K)
+1. **Feature selection** — mRMR (with target binning for regression), LASSO with 10-fold CV, SHAP attribution, and four-scenario ablation
+1. **Base learners** — Probabilistic Neural Network (PNN), Multi-Layer Feedforward Neural Network (MLFFNN), Deep Feedforward Neural Network (DFFNN), 1D Convolutional Neural Network (CNN1D)
+1. **Meta-learners** — I-CNN stacker (baseline), **Ridge stacker (deployment model)**, Hybrid Multi-Scale Feature-Fusion CNN (architectural novelty)
+1. **Hyperparameter optimization** — Bayesian Optimization with Gaussian Process surrogate, 5-fold cross-validation, validation-loss early stopping
+1. **Safety layer** — Monte Carlo Dropout uncertainty quantification (T = 200), OOD detection (|z| > 3), physical clipping ([0.2, 4.5] km/s)
+1. **Deployment & indirect validation** — Vp–Vs crossplot vs Castagna & Greenberg-Castagna, geomechanical post-processing (ν, G, K)
 
----
+-----
 
 ## 🎯 Key results
 
-Applied to a well pair in the North East Java Basin (Indonesia) — training well **BT-4** (Late Oligocene Kujung carbonate, 1415–1993 m) and blind well **BTS-1** (Pliocene–Pleistocene clastic overburden, 35–629 m):
+Applied to a well pair in the North East Java Basin (Indonesia) — training well **RCW-1** (Late Oligocene Kujung carbonate, 1415–1993 m) and blind well **RCW-2** (Pliocene–Pleistocene clastic overburden, 35–629 m):
 
-| Model | $R^2$ (test) | Domain | Note |
-|:-|--:|:-:|:-|
-| **Ridge stacker** | **0.886** | z-score | ⭐ **Deployment model** |
-| PNN | 0.879 | z-score | Best base learner |
-| MLFFNN | 0.869 | z-score | |
-| DFFNN | 0.816 | z-score | |
-| I-CNN stacker | 0.726 | z-score | Baseline deep stacking |
-| Hybrid I-CNN | 0.544 | z-score | Proposed novelty (negative result) |
-| CNN1D | −0.066 | z-score | Catastrophic on small data |
+|Model            |$R^2$ (test)|Domain |Note                              |
+|:----------------|-----------:|:-----:|:---------------------------------|
+|**Ridge stacker**|**0.886**   |z-score|⭐ **Deployment model**            |
+|PNN              |0.879       |z-score|Best base learner                 |
+|MLFFNN           |0.869       |z-score|                                  |
+|DFFNN            |0.816       |z-score|                                  |
+|I-CNN stacker    |0.726       |z-score|Baseline deep stacking            |
+|Hybrid I-CNN     |0.544       |z-score|Proposed novelty (negative result)|
+|CNN1D            |−0.066      |z-score|Catastrophic on small data        |
 
 **Three principal findings:**
 
 1. **Linear stacking beats deep meta-learning on small tabular data** — Ridge stacker ($R^2 = 0.886$) outperforms both deep meta-learner variants (I-CNN $R^2 = 0.726$; Hybrid I-CNN $R^2 = 0.544$). Consistent with [Grinsztajn et al., 2022](https://arxiv.org/abs/2207.08815).
+1. **mRMR-only outperforms mRMR ∩ LASSO intersection** for feature selection ($R^2 = 0.739$ vs $0.727$ in ablation). The intersection rule discards gamma-ray, which carries lithology-discriminative information not subsumed by other logs.
+1. **Statistical OOD detection is necessary but not sufficient for cross-formation transfer.** 52.8% of RCW-2 samples flagged as OOD; even within non-OOD samples, predicted $V_s$ shows **+44% systematic upward bias** vs Castagna baseline due to *rock-physics regime mismatch* (carbonate-trained model applied to clastics). Identifies a structural failure mode of conventional OOD safeguards.
 
-2. **mRMR-only outperforms mRMR ∩ LASSO intersection** for feature selection ($R^2 = 0.739$ vs $0.727$ in ablation). The intersection rule discards gamma-ray, which carries lithology-discriminative information not subsumed by other logs.
-
-3. **Statistical OOD detection is necessary but not sufficient for cross-formation transfer.** 52.8% of BTS-1 samples flagged as OOD; even within non-OOD samples, predicted $V_s$ shows **+44% systematic upward bias** vs Castagna baseline due to *rock-physics regime mismatch* (carbonate-trained model applied to clastics). Identifies a structural failure mode of conventional OOD safeguards.
-
----
+-----
 
 ## 📚 How to cite
 
@@ -89,9 +87,8 @@ If you use this code in your research, please cite both the paper and the softwa
 
 ```bibtex
 @article{Wibowo2026Vs,
-  author    = {Wibowo, Rahmat Catur and Handoyo and Kumalasari, Isti Nur and
-               Rambe, Sibgha Alfirdausi and Winardhy, Ignatius Sonny and Amijaya,              
-               Hendra and Normansyah and Sarkowi, Muh},
+  author    = {Wibowo, Rahmat Catur and Handoyo and Kumalasari, Isti Nur and 
+               Winardhy, Ignatius Sonny and Amijaya, Hendra and Sarkowi, Muh},
   title     = {Hybrid Multi-Scale Feature-Fusion Convolutional Network with 
                Ridge Stacking for Shear-Wave Velocity Prediction from 
                Conventional Well Logs: An Out-of-Distribution-Aware Framework},
@@ -108,9 +105,8 @@ If you use this code in your research, please cite both the paper and the softwa
 
 ```bibtex
 @software{VsPredictionStacking2026,
-  author       = {Wibowo, Rahmat Catur and Handoyo and Kumalasari, Isti Nur and
-                  Rambe, Sibgha Alfirdausi and Winardhy, Ignatius Sonny and  
-                  Amijaya, Hendra and Normansyah and Sarkowi, Muh},
+  author       = {Wibowo, Rahmat Catur and Handoyo and Kumalasari, Isti Nur and 
+                  Winardhy, Ignatius Sonny and Amijaya, Hendra and Sarkowi, Muh},
   title        = {{VsPrediction-Stacking: MATLAB pipeline for Vs prediction with 
                    stacking ensemble and OOD safeguards}},
   year         = {2026},
@@ -120,9 +116,9 @@ If you use this code in your research, please cite both the paper and the softwa
 }
 ```
 
-A `CITATION.cff` file is included for GitHub's automatic citation widget.
+A `CITATION.cff` file is included for GitHub’s automatic citation widget.
 
----
+-----
 
 ## 📁 Repository structure
 
@@ -141,9 +137,9 @@ VsPrediction-Stacking/
 │
 ├── data/
 │   ├── README.md                   ← data confidentiality note
-│   ├── BT-4_template.csv           ← column structure template (empty)
-│   ├── BTS-1_template.csv          ← column structure template (empty)
-│   └── generate_synthetic_wells.m  ← synthetic data with BT-4/BTS-1-like statistics
+│   ├── RCW-1_template.csv           ← column structure template (empty)
+│   ├── RCW-2_template.csv          ← column structure template (empty)
+│   └── generate_synthetic_wells.m  ← synthetic data with RCW-1/RCW-2-like statistics
 │
 ├── src/
 │   ├── preprocessing/              ← Section 2.2 of paper
@@ -218,7 +214,7 @@ VsPrediction-Stacking/
     └── testDeployment.m
 ```
 
----
+-----
 
 ## 🔧 Requirements
 
@@ -231,13 +227,13 @@ VsPrediction-Stacking/
 
 The following toolboxes are required:
 
-| Toolbox | Used for |
-|:-|:-|
-| **Statistics and Machine Learning Toolbox** | mRMR, LASSO, k-NN imputation, cross-validation |
-| **Deep Learning Toolbox** | CNN1D, I-CNN, Hybrid I-CNN, MC-Dropout |
-| **Optimization Toolbox** | Bayesian Optimization (`bayesopt`) |
-| **Signal Processing Toolbox** | Savitzky-Golay filter, depth resampling |
-| **Parallel Computing Toolbox** *(optional)* | Parallel hyperparameter search and ablation |
+|Toolbox                                    |Used for                                      |
+|:------------------------------------------|:---------------------------------------------|
+|**Statistics and Machine Learning Toolbox**|mRMR, LASSO, k-NN imputation, cross-validation|
+|**Deep Learning Toolbox**                  |CNN1D, I-CNN, Hybrid I-CNN, MC-Dropout        |
+|**Optimization Toolbox**                   |Bayesian Optimization (`bayesopt`)            |
+|**Signal Processing Toolbox**              |Savitzky-Golay filter, depth resampling       |
+|**Parallel Computing Toolbox** *(optional)*|Parallel hyperparameter search and ablation   |
 
 To verify available toolboxes in MATLAB:
 
@@ -253,9 +249,9 @@ Tested on:
 - ✅ Windows 11 — x86_64
 - ✅ Ubuntu 22.04 LTS
 
-GPU is optional; pipeline runs on CPU in approximately 45 minutes for the full BT-4 dataset (3530 samples, 5 features).
+GPU is optional; pipeline runs on CPU in approximately 45 minutes for the full RCW-1 dataset (3530 samples, 5 features).
 
----
+-----
 
 ## ⚙️ Installation
 
@@ -289,7 +285,7 @@ addpath(genpath(fullfile(userpath, 'VsPrediction-Stacking', 'src')));
 runTests  % runs all unit tests; expect "All tests passed."
 ```
 
----
+-----
 
 ## 🚀 Quick start
 
@@ -321,7 +317,7 @@ fprintf('Mean predicted Vs (non-OOD): %.2f km/s\n', ...
 
 After the run finishes, all outputs are saved under `results/` (see [Output structure](#-output-structure)).
 
----
+-----
 
 ## 🛠 Configuration
 
@@ -331,8 +327,8 @@ All settings live in `config/default_config.m`. Key fields:
 function cfg = default_config()
 
     % ─── Data ──────────────────────────────────────────────
-    cfg.training.dataPath  = 'data/BT-4_logs.csv';
-    cfg.deployment.dataPath = 'data/BTS-1_logs.csv';
+    cfg.training.dataPath  = 'data/RCW-1_logs.csv';
+    cfg.deployment.dataPath = 'data/RCW-2_logs.csv';
     cfg.targetColumn       = 'Vs';
     cfg.featureColumns     = {'GR', 'RHOB', 'NPHI', 'PHIE', 'VP'};
 
@@ -398,7 +394,7 @@ cfg = my_config();
 results = main_pipeline(cfg);
 ```
 
----
+-----
 
 ## 🧪 Reproducing paper results
 
@@ -407,12 +403,12 @@ The paper results were generated with the configuration shipped in `config/defau
 ```matlab
 % 1. Generate synthetic data with the same statistical properties as the paper's
 %    training and blind wells (since the original data are confidential)
-generate_synthetic_wells('data/', 'BT-4-like.csv', 'BTS-1-like.csv', 7);
+generate_synthetic_wells('data/', 'RCW-1-like.csv', 'RCW-2-like.csv', 7);
 
 % 2. Point config at the synthetic files
 cfg = default_config();
-cfg.training.dataPath  = 'data/BT-4-like.csv';
-cfg.deployment.dataPath = 'data/BTS-1-like.csv';
+cfg.training.dataPath  = 'data/RCW-1-like.csv';
+cfg.deployment.dataPath = 'data/RCW-2-like.csv';
 
 % 3. Run
 results = main_pipeline(cfg);
@@ -427,19 +423,19 @@ Expected outcomes on the synthetic data (statistically equivalent within ± 2% t
 
 The synthetic data preserves the cross-formation regime mismatch by design; this ensures the central scientific finding is reproducible even without access to the confidential field data.
 
----
+-----
 
 ## 🔒 Data availability
 
-The original well-log dataset (BT-4 and BTS-1, Field RCW, North East Java Basin) cannot be publicly distributed due to operator confidentiality. To preserve scientific reproducibility, this repository includes:
+The original well-log dataset (RCW-1 and RCW-2, Field RCW, North East Java Basin) cannot be publicly distributed due to operator confidentiality. To preserve scientific reproducibility, this repository includes:
 
-- **Column-structure templates** (`data/BT-4_template.csv`, `data/BTS-1_template.csv`) — empty headers showing the expected log names and depth-step convention
-- **Synthetic data generator** (`data/generate_synthetic_wells.m`) — produces well-log sequences with statistical properties (means, variances, lag-1 correlations, cross-correlations) calibrated to match BT-4 and BTS-1
+- **Column-structure templates** (`data/RCW-1_template.csv`, `data/RCW-2_template.csv`) — empty headers showing the expected log names and depth-step convention
+- **Synthetic data generator** (`data/generate_synthetic_wells.m`) — produces well-log sequences with statistical properties (means, variances, lag-1 correlations, cross-correlations) calibrated to match RCW-1 and RCW-2
 - **Pre-computed result tables** (`results/tables/`) — the final $R^2$, RMSE, ablation, and deployment numbers reported in the paper, distributed as Excel files
 
 Researchers seeking access to the original well-log data may contact the corresponding author with a formal data-sharing request, subject to operator approval.
 
----
+-----
 
 ## 📂 Output structure
 
@@ -451,8 +447,8 @@ results/
 │   └── run_20260515_143022.log    ← timestamped pipeline log
 │
 ├── preprocessing/
-│   ├── BT-4_clean.mat
-│   ├── BTS-1_clean.mat
+│   ├── RCW-1_clean.mat
+│   ├── RCW-2_clean.mat
 │   └── preproc_summary.xlsx
 │
 ├── feature_selection/
@@ -505,7 +501,7 @@ All figures are 300 DPI PNG by default. To also export PDF/SVG:
 cfg.output.figureFormats = {'png', 'pdf', 'svg'};
 ```
 
----
+-----
 
 ## 📖 Documentation
 
@@ -514,7 +510,7 @@ cfg.output.figureFormats = {'png', 'pdf', 'svg'};
 - **Paper §2–§4** — comprehensive narrative description, equations, and discussion of results
 - **In-source comments** — every `.m` file is documented with header block, parameter description, and references to relevant paper sections
 
----
+-----
 
 ## ✅ Testing
 
@@ -533,32 +529,32 @@ testUncertainty
 testDeployment
 ```
 
----
+-----
 
 ## 🤝 Contributing
 
 Contributions are welcome. If you find a bug, please open an issue with:
 
 1. A minimal reproducible example
-2. The MATLAB version and operating system
-3. The full error message and stack trace
+1. The MATLAB version and operating system
+1. The full error message and stack trace
 
 For feature additions (new base learners, alternative meta-learners, additional rock-physics constraints), please:
 
 1. Open an issue to discuss before submitting a PR
-2. Follow the existing code style (MATLAB capitalized verbNoun, header blocks, structured config)
-3. Add a corresponding unit test
-4. Update `docs/METHODOLOGY.md` if the change is methodological
+1. Follow the existing code style (MATLAB capitalized verbNoun, header blocks, structured config)
+1. Add a corresponding unit test
+1. Update `docs/METHODOLOGY.md` if the change is methodological
 
----
+-----
 
 ## 📄 License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for the full text.
+This project is licensed under the MIT License — see <LICENSE> for the full text.
 
 The MIT License is permissive: you may use, modify, and distribute this code for any purpose (academic or commercial), as long as the original copyright notice and license text are retained.
 
----
+-----
 
 ## 📧 Contact
 
@@ -567,22 +563,22 @@ The MIT License is permissive: you may use, modify, and distribute this code for
 Rahmat Catur Wibowo  
 Geological Engineering Department, Universitas Lampung  
 Bandar Lampung, Indonesia  
-Email: rahmat.caturwibowo@eng.unila.ac.id
+Email: [rahmat.caturwibowo@eng.unila.ac.id](mailto:rahmat.caturwibowo@eng.unila.ac.id)
 
 For code-specific issues, the GitHub issues page is preferred:  
-https://github.com/rcw3712/VsPrediction-Stacking/issues
+<https://github.com/rcw3712/VsPrediction-Stacking/issues>
 
----
+-----
 
 ## 🙏 Acknowledgments
 
 We thank the operators of Field RCW for providing well-log access under confidentiality terms, and the geophysics community for the foundational empirical relations [Castagna et al., 1985; Greenberg and Castagna, 1992] that underpin the indirect validation framework. The reviewers of *Artificial Intelligence in Geosciences* are gratefully acknowledged for their constructive feedback.
 
-This work was supported by Kemdiktisaintek Indonesia with number contract 357/UN26.21/PN/2026.
+This work was supported by [insert funding source, grant number, year] *(please complete before final publication)*.
 
-The open-source community is also acknowledged: the pipeline builds on MATLAB's Deep Learning Toolbox, Statistics and Machine Learning Toolbox, and the SHAP attribution implementation inspired by [Lundberg and Lee, 2017](https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html).
+The open-source community is also acknowledged: the pipeline builds on MATLAB’s Deep Learning Toolbox, Statistics and Machine Learning Toolbox, and the SHAP attribution implementation inspired by [Lundberg and Lee, 2017](https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html).
 
----
+-----
 
 <p align="center">
   <em>If this code helps your research, please consider citing the paper above and starring ⭐ the repository.</em>
