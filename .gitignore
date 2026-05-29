@@ -42,8 +42,8 @@ data/*.LAS
 data/*.txt
 
 # Explicit exceptions (commit these files even though above rules would ignore them)
-!data/BT-4_template.csv
-!data/BTS-1_template.csv
+!data/RCW-1_template.csv
+!data/RCW-2_template.csv
 !data/README.md
 !data/generate_synthetic_wells.m
 
