@@ -239,7 +239,7 @@ results/NEJ_excel_locked_final_<timestamp>/
 ```bibtex
 @article{Wibowo2026Vs,
   author  = {Wibowo, Rahmat Catur and Handoyo and Kumalasari, Isti Nur and
-             Winardhy, Ignatius Sonny and Amijaya, Hendra and Sarkowi, Muh},
+             Winardhy, Ignatius Sonny and Amijaya, Hendra and Normansyah and Aristoteles and Sarkowi, Muh},
   title   = {Hybrid I-CNN Stacking Ensemble for Shear-Wave Velocity Prediction
              from Conventional Well Logs: A Multi-Seed Robustness Study},
   journal = {Artificial Intelligence in Geosciences},
