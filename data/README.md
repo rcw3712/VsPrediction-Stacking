@@ -1,82 +1,26 @@
 # Data directory
 
-This directory holds well-log inputs to the pipeline.
+The original well-log dataset (**NEJ-1** and **NEJ-2**, North East Java Basin)
+cannot be redistributed due to operator confidentiality. The raw `.xlsx`/`.las`
+files are intentionally excluded from version control (see `.gitignore`).
 
-## Confidentiality notice
+## Expected files (provide locally, not committed)
 
-The original well-log dataset (Field RCW, North East Java Basin) used in the
-accompanying paper is **not redistributable** due to confidentiality restrictions
-imposed by the field operator. **Do not commit raw well-log files (`.csv`,
-`.las`, `.xlsx`) to this repository.** The repository’s `.gitignore` is
-configured to ignore such files by default.
+| File          | Well   | Role             | Required columns                          |
+| ------------- | ------ | ---------------- | ----------------------------------------- |
+| `NEJ-1.xlsx`  | NEJ-1  | Training (cal.)  | DEPTH, GR, RHOB, NPHI, PHIE, VP, VS        |
+| `NEJ-2.xlsx`  | NEJ-2  | Blind deployment | DEPTH, GR, RHOB, NPHI, PHIE, VP (no VS)    |
 
-## What is provided
+NEJ-1 is the calibrated well (measured dipole-sonic VS available); NEJ-2 is the
+blind deployment well (no VS — validated indirectly via trend, Vp–Vs
+consistency, and empirical relations).
 
-|File                        |Purpose                                                                                                                                                                           |
-|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`RCW-1_template.csv`        |Header-only CSV showing the expected columns for the **training well** (with Vs target). Copy this file, rename to your own well name, and append your data rows below the header.|
-|`RCW-2_template.csv`        |Header-only CSV showing the expected columns for the **blind well** (no Vs). Same workflow as above.                                                                              |
-|`generate_synthetic_wells.m`|*(planned)* MATLAB script that generates statistically equivalent synthetic well-log sequences for both wells, preserving the cross-formation regime mismatch.                    |
+## Reproducibility without the confidential data
 
-## Expected file format
+Researchers without access to the field data can reproduce the central findings
+using statistically-matched synthetic wells. Place a `generate_synthetic_wells.m`
+generator here (preserving means, variances, lag-1 and cross-correlations of the
+real logs) and point `default_config.m` at the generated files.
 
-### Training well — `RCW-1_template.csv`
-
-```
-Depth,GR,RHOB,NPHI,PHIE,VP,Vs
-```
-
-7 columns, one row per depth sample. **The training well must include Vs.**
-
-### Blind well — `RCW-2_template.csv`
-
-```
-Depth,GR,RHOB,NPHI,PHIE,VP
-```
-
-6 columns, one row per depth sample. **The blind well must NOT include Vs**
-(if present, it will be silently ignored by the deployment routine).
-
-## Column specifications
-
-|Column |Unit                    |Range (typical)|Description                                                                       |
-|:------|:-----------------------|:--------------|:---------------------------------------------------------------------------------|
-|`Depth`|meters                  |0–6000         |True vertical depth below ground level (TVD), must be **monotonically increasing**|
-|`GR`   |API                     |0–200          |Gamma-ray total count                                                             |
-|`RHOB` |g/cm³                   |1.5–3.0        |Bulk density                                                                      |
-|`NPHI` |fraction (dimensionless)|0–1            |Neutron porosity (1 = 100% porosity)                                              |
-|`PHIE` |fraction (dimensionless)|0–1            |Effective porosity                                                                |
-|`VP`   |m/s                     |1500–6000      |Compressional-wave velocity (the pipeline auto-converts to km/s internally)       |
-|`Vs`   |m/s                     |700–4000       |Shear-wave velocity from dipole sonic (training well only)                        |
-
-## Missing values
-
-- Empty cells or `NaN` are both accepted
-- The pipeline will impute missing values via k-NN (k = 5) using other features as predictors (Section 2.2 of paper)
-- However, depth column must have no gaps — if depth row is missing entirely, drop the whole row
-
-## Example data row (for illustration only)
-
-The template files contain headers only. Below is what a single populated row would look like:
-
-```
-1415.00,42.31,2.45,0.18,0.12,3120,1820
-```
-
-(depth 1415 m, GR 42.31 API, RHOB 2.45 g/cm³, NPHI 0.18, PHIE 0.12, VP 3120 m/s, Vs 1820 m/s)
-
-## Excel (XLSX) input
-
-The pipeline also accepts `.xlsx` files with the same column structure. The first row must be the header. Place files at:
-
-- `data/<your_training_well>.xlsx`
-- `data/<your_blind_well>.xlsx`
-
-The pipeline auto-detects file extension and dispatches the appropriate reader.
-
-## Data sharing requests
-
-Researchers seeking access to the original RCW-1 and RCW-2 well-log data may
-contact the corresponding author (`rahmat.caturwibowo@eng.unila.ac.id`) with
-a formal data-sharing request. Approval is subject to the operator’s
-confidentiality terms.
+To request access to the original data, contact the corresponding author
+(subject to operator approval).
