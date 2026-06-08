@@ -1,7 +1,7 @@
 MIT License
 
 Copyright (c) 2026 Rahmat Catur Wibowo, Handoyo, Isti Nur Kumalasari,
-                    Ignatius Sonny Winardhy, Hendra Amijaya, Muh Sarkowi
+                    Ignatius Sonny Winardhy, Hendra Amijaya, Normansyah, Aristoteles, Muh Sarkowi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,9 @@ ADDITIONAL ATTRIBUTION REQUEST (academic use)
 
 This software accompanies the following peer-reviewed publication:
 
-  Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H.,
-  Sarkowi, M. (2026). Hybrid Multi-Scale Feature-Fusion Convolutional 
-  Network with Ridge Stacking for Shear-Wave Velocity Prediction from 
-  Conventional Well Logs: An Out-of-Distribution-Aware Framework. 
+  Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., 
+  Normansyah, Aristoteles, Sarkowi, M. (2026). Hybrid I-CNN Stacking Ensemble 
+  for Shear-Wave Velocity Prediction from Conventional Well Logs: A Multi-Seed Robustness Study. 
   Artificial Intelligence in Geosciences. DOI: [pending]
 
 While not legally required under the MIT license, citing this publication 
