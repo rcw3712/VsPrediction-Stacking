@@ -49,6 +49,8 @@ authors:
     affiliation: "Geological Engineering Department, Universitas Gadjah Mada, Indonesia"
   - family-names: Normansyah
     affiliation: "Pertamina Hulu Energi Offshore Northwest Java, Jakarta, Indonesia"
+  - family-names: Aristoteles
+    affiliation: "Computer Science Department, Mathematics and Natural Science Faculty, Universitas Lampung, Indonesia"
   - family-names: Sarkowi
     given-names: Muh
     affiliation: "Geophysics Engineering Department, Universitas Lampung, Indonesia"
@@ -56,7 +58,7 @@ authors:
 # Companion paper — primary scientific reference
 preferred-citation:
   type: article
-  title: "Hybrid Multi-Scale Feature-Fusion Convolutional Network with Ridge Stacking for Shear-Wave Velocity Prediction from Conventional Well Logs: An Out-of-Distribution-Aware Framework"
+  title: "Hybrid I-CNN Stacking Ensemble for Shear-Wave Velocity Prediction from Conventional Well Logs: A Multi-Seed Robustness Study"
   journal: "Artificial Intelligence in Geosciences"
   year: 2026
   doi: "10.xxxx/xxxxx"   # TODO: update with assigned DOI on acceptance
@@ -75,5 +77,6 @@ preferred-citation:
     - family-names: Amijaya
       given-names: Hendra
     - family-names: Normansyah
+    - family-names: Aristoteles
     - family-names: Sarkowi
       given-names: Muh
