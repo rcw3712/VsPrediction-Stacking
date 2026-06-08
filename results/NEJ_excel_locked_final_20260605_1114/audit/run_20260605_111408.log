@@ -1,0 +1,605 @@
+
+[LOGGER] Output mirrored to: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\audit\run_20260605_111408.log
+  Run folder: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114
+  Robustness seeds: [7    99   123  2026    42]  (canonical = LAST = 42)
+
+[1/12] Loading wells ...
+  [IO] NEJ-1 column map:
+       'DEPTH (FT)' → DEPTH  (unit: FT→M)
+       'GR (API)' → GR  (unit: API)
+       'RHOB (G/CC)' → RHOB  (unit: G/CC)
+       'NPHI (V/V)' → NPHI  (unit: V/V)
+       'PHIE (V/V)' → PHIE  (unit: fraction)
+       'VP (M/S)' → VP  (unit: M/S→km/s (auto))
+       'VS (M/S)' → VS  (unit: M/S→km/s (auto))
+  [IO] NEJ-2 column map:
+       'DEPTH (FT)' → DEPTH  (unit: FT→M)
+       'GR (API)' → GR  (unit: API)
+       'RHOB (G/CC)' → RHOB  (unit: G/CC)
+       'NPHI (V/V)' → NPHI  (unit: V/V)
+       'PHIE (V/V)' → PHIE  (unit: fraction)
+       'VP (M/S)' → VP  (unit: M/S→km/s (auto))
+
+========================================================================
+  DATA AUDIT — NEJ-1 (training) and NEJ-2 (blind)
+  Timestamp: 2026-06-05 11:14:15
+========================================================================
+
+  WELL: NEJ-1
+  Total rows: 109779
+  Columns:    DEPTH, GR, RHOB, NPHI, PHIE, VP, VS
+
+  Per-column statistics:
+    Column     N_valid     N_NaN       Min    Median       Max       Std  Sanity
+    DEPTH       109779         0    59.190  1692.504  2026.400   178.693  ✓
+    GR            6964    102815    -5.411    38.540    94.499    26.289  ✓
+    RHOB          6481    103298     1.534     2.328     2.797     0.157  ✓
+    NPHI          6964    102815     0.047     0.375     0.749     0.135  ✓
+    PHIE        106298      3481    -0.018     0.067     0.598     0.092  ✓
+    VP            3788    105991     2.146     3.471     6.346     0.765  ✓
+    VS            3799    105980     0.494     1.709     3.170     0.522  ✓
+
+------------------------------------------------------------------------
+
+  WELL: NEJ-2
+  Total rows: 7660
+  Columns:    DEPTH, GR, RHOB, NPHI, PHIE, VP
+
+  Per-column statistics:
+    Column     N_valid     N_NaN       Min    Median       Max       Std  Sanity
+    DEPTH         7660         0    34.912   478.520   629.093    94.600  ✓
+    GR            6842       818    13.401    54.449   122.399    29.809  ✓
+    RHOB          6835       825     1.008     2.348     4.275     0.288  ✓
+    NPHI          6842       818     0.012     0.274     0.834     0.151  ✓
+    PHIE          3948      3712     0.000     0.120     0.543     0.079  ✓
+    VP            6695       965    -0.305     3.336     6.158     0.910  ✓
+
+========================================================================
+  CROSS-WELL COMPARISON
+========================================================================
+  Common columns: DEPTH, GR, NPHI, PHIE, RHOB, VP
+  Training-only columns: VS
+  Blind-only columns:    
+
+  Depth coverage:
+    NEJ-1: [59.19, 2026.40] m   (span 1967.21 m)
+    NEJ-2: [34.91, 629.09] m   (span 594.18 m)
+    Depth overlap: [59.19, 629.09] m
+
+  VS availability:
+    NEJ-1: VS PRESENT (target)
+    NEJ-2: VS ABSENT (blind deployment)
+
+========================================================================
+  Audit complete. Saved: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\audit\data_audit.txt
+========================================================================
+
+
+[2/12] Preprocessing ...
+  [PREP-NEJ-1] start: 109779 rows, predictors: GR, RHOB, NPHI, PHIE, VP, target: VS (PROTECTED)
+  [PREP-NEJ-1] drop 102815 mostly-NaN-predictor rows (≥80% preds missing)
+  [PREP-NEJ-1] RHOB: 39 outliers marked NaN
+  [PREP-NEJ-1] NPHI: 1 outliers marked NaN
+  [PREP-NEJ-1] PHIE: 5 outliers marked NaN
+  [PREP-NEJ-1] VP: 168 outliers marked NaN
+  [PREP-NEJ-1] VS: 152 outliers marked NaN
+  [PREP-NEJ-1] RHOB: imputed 522 NaN (remaining 0)
+  [PREP-NEJ-1] NPHI: imputed 1 NaN (remaining 0)
+  [PREP-NEJ-1] PHIE: imputed 3426 NaN (remaining 0)
+  [PREP-NEJ-1] VP: imputed 3344 NaN (remaining 0)
+  [PREP-NEJ-1] VS: PROTECTED from imputation (3317 remain missing/invalid, 152 outlier-flagged)
+  [PREP-NEJ-1] VS_source: measured=3647  missing=3317 (total=6964)
+  [PREP-NEJ-1] FINAL: 6964 samples at dz=0.1524 m, depth [946.86, 2008.02] m
+  [PREP-NEJ-2] start: 7660 rows, predictors: GR, RHOB, NPHI, PHIE, VP
+  [PREP-NEJ-2] drop 799 mostly-NaN-predictor rows (≥80% preds missing)
+  [PREP-NEJ-2] RHOB: 190 outliers marked NaN
+  [PREP-NEJ-2] NPHI: 4 outliers marked NaN
+  [PREP-NEJ-2] PHIE: 2 outliers marked NaN
+  [PREP-NEJ-2] VP: 20 outliers marked NaN
+  [PREP-NEJ-2] GR: imputed 19 NaN (remaining 0)
+  [PREP-NEJ-2] RHOB: imputed 216 NaN (remaining 0)
+  [PREP-NEJ-2] NPHI: imputed 23 NaN (remaining 0)
+  [PREP-NEJ-2] PHIE: imputed 3586 NaN (remaining 0)
+  [PREP-NEJ-2] VP: imputed 187 NaN (remaining 0)
+  [PREP-NEJ-2] no VS column → blind deployment well
+  [PREP-NEJ-2] FINAL: 2085 samples at dz=0.1524 m, depth [311.35, 628.95] m
+
+[2b/12] Building supervised dataset (target-clean) ...
+  [SUP-NEJ-1] supervised samples: 3647 (from 6964 total) — all VS measured ✓
+  [SUP] NEJ-1: 3647 measured  |  3317 missing  |  supervised=3647
+
+
+████████████████████████████████████████████████████████
+  SEED ITERATION 1/5  (seed = 7)
+████████████████████████████████████████████████████████
+
+[3/12] Train/test split (from supervised set) ...
+  Train=2918, Test=729 (all VS measured ✓)
+
+[4/12] Normalization ...
+
+[5/12] Feature selection scenarios ...
+
+  [BUILD-FS] Candidate logs (5): GR, RHOB, NPHI, PHIE, VP
+  [BUILD-FS] mRMR top_k = 3, LASSO α = 1.0000
+  [mRMR] top-3: VP, PHIE, NPHI
+  [LASSO] selected: GR, PHIE, VP
+  [BUILD-FS] Final scenarios:
+    S1_intersection  [2 feats, mRMR ∩ LASSO]: PHIE, VP
+    S2_all           [5 feats, No feature selection]: GR, RHOB, NPHI, PHIE, VP
+    S3_mrmr_only     [3 feats, mRMR top-3]: NPHI, PHIE, VP
+    S4_lasso_only    [3 feats, LASSO non-zero β (CV λ)]: GR, PHIE, VP
+
+[6/12] Base learners ...
+
+  --- S1_intersection (2 feat) ---
+  [pnn | S1_intersection] best hp → CV-RMSE mean=0.218±0.010 km/s, test R²=0.708, RMSE=0.248
+  [mlffnn | S1_intersection] best hp → CV-RMSE mean=0.217±0.011 km/s, test R²=0.702, RMSE=0.250
+  [dffnn | S1_intersection] best hp → CV-RMSE mean=0.217±0.013 km/s, test R²=0.708, RMSE=0.248
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+  [cnn1d | S1_intersection] best hp → CV-RMSE mean=0.217±0.011 km/s, test R²=0.702, RMSE=0.250
+
+  --- S2_all (5 feat) ---
+  [pnn | S2_all] best hp → CV-RMSE mean=0.192±0.011 km/s, test R²=0.782, RMSE=0.214
+  [mlffnn | S2_all] best hp → CV-RMSE mean=0.199±0.009 km/s, test R²=0.748, RMSE=0.230
+  [dffnn | S2_all] best hp → CV-RMSE mean=0.199±0.011 km/s, test R²=0.767, RMSE=0.221
+  [cnn1d | S2_all] best hp → CV-RMSE mean=0.220±0.009 km/s, test R²=0.681, RMSE=0.259
+
+  --- S3_mrmr_only (3 feat) ---
+  [pnn | S3_mrmr_only] best hp → CV-RMSE mean=0.207±0.013 km/s, test R²=0.745, RMSE=0.232
+  [mlffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.013 km/s, test R²=0.732, RMSE=0.238
+  [dffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.015 km/s, test R²=0.747, RMSE=0.231
+  [cnn1d | S3_mrmr_only] best hp → CV-RMSE mean=0.217±0.013 km/s, test R²=0.690, RMSE=0.255
+
+  --- S4_lasso_only (3 feat) ---
+  [pnn | S4_lasso_only] best hp → CV-RMSE mean=0.212±0.012 km/s, test R²=0.727, RMSE=0.240
+  [mlffnn | S4_lasso_only] best hp → CV-RMSE mean=0.214±0.010 km/s, test R²=0.722, RMSE=0.242
+  [dffnn | S4_lasso_only] best hp → CV-RMSE mean=0.211±0.011 km/s, test R²=0.738, RMSE=0.235
+  [cnn1d | S4_lasso_only] best hp → CV-RMSE mean=0.224±0.012 km/s, test R²=0.700, RMSE=0.251
+
+  Best stacking scenario: S2_all (mean R²=0.745)
+
+[7/12] Meta-learners ...
+
+[8/12] Empirical baselines ...
+
+[9/12] Building master results table ...
+
+  Model ranking (seed 7):
+    1. icnn                           R²=0.7868 RMSE=0.2118 km/s practically tied
+    2. hybrid_icnn                    R²=0.7854 RMSE=0.2125 km/s practically tied
+    3. ridge                          R²=0.7827 RMSE=0.2139 km/s practically tied
+    4. pnn                            R²=0.7821 RMSE=0.2141 km/s ★ DEPLOYED
+    5. dffnn                          R²=0.7671 RMSE=0.2214 km/s 
+    6. mlffnn                         R²=0.7483 RMSE=0.2301 km/s 
+    7. cnn1d                          R²=0.6812 RMSE=0.2590 km/s 
+    8. Greenberg-Castagna limestone   R²=0.5039 RMSE=0.3231 km/s 
+    9. Greenberg-Castagna shale       R²=0.4581 RMSE=0.3377 km/s 
+    10. Castagna mudrock               R²=0.1309 RMSE=0.4277 km/s 
+    11. Greenberg-Castagna sand        R²=0.0394 RMSE=0.4496 km/s 
+
+  Deployment (seed 7): pnn
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\per_seed\ranking_seed_7.csv
+
+
+████████████████████████████████████████████████████████
+  SEED ITERATION 2/5  (seed = 99)
+████████████████████████████████████████████████████████
+
+[3/12] Train/test split (from supervised set) ...
+  Train=2918, Test=729 (all VS measured ✓)
+
+[4/12] Normalization ...
+
+[5/12] Feature selection scenarios ...
+
+  [BUILD-FS] Candidate logs (5): GR, RHOB, NPHI, PHIE, VP
+  [BUILD-FS] mRMR top_k = 3, LASSO α = 1.0000
+  [mRMR] top-3: VP, GR, NPHI
+  [LASSO] selected: GR, PHIE, VP
+  [BUILD-FS] Final scenarios:
+    S1_intersection  [2 feats, mRMR ∩ LASSO]: GR, VP
+    S2_all           [5 feats, No feature selection]: GR, RHOB, NPHI, PHIE, VP
+    S3_mrmr_only     [3 feats, mRMR top-3]: GR, NPHI, VP
+    S4_lasso_only    [3 feats, LASSO non-zero β (CV λ)]: GR, PHIE, VP
+
+[6/12] Base learners ...
+
+  --- S1_intersection (2 feat) ---
+  [pnn | S1_intersection] best hp → CV-RMSE mean=0.223±0.018 km/s, test R²=0.755, RMSE=0.227
+  [mlffnn | S1_intersection] best hp → CV-RMSE mean=0.220±0.017 km/s, test R²=0.768, RMSE=0.221
+  [dffnn | S1_intersection] best hp → CV-RMSE mean=0.218±0.016 km/s, test R²=0.770, RMSE=0.220
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+  [cnn1d | S1_intersection] best hp → CV-RMSE mean=0.220±0.017 km/s, test R²=0.768, RMSE=0.221
+
+  --- S2_all (5 feat) ---
+  [pnn | S2_all] best hp → CV-RMSE mean=0.196±0.014 km/s, test R²=0.831, RMSE=0.188
+  [mlffnn | S2_all] best hp → CV-RMSE mean=0.206±0.011 km/s, test R²=0.785, RMSE=0.213
+  [dffnn | S2_all] best hp → CV-RMSE mean=0.204±0.016 km/s, test R²=0.808, RMSE=0.201
+  [cnn1d | S2_all] best hp → CV-RMSE mean=0.226±0.018 km/s, test R²=0.745, RMSE=0.232
+
+  --- S3_mrmr_only (3 feat) ---
+  [pnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.018 km/s, test R²=0.784, RMSE=0.213
+  [mlffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.015 km/s, test R²=0.790, RMSE=0.210
+  [dffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.207±0.014 km/s, test R²=0.781, RMSE=0.215
+  [cnn1d | S3_mrmr_only] best hp → CV-RMSE mean=0.232±0.023 km/s, test R²=0.753, RMSE=0.228
+
+  --- S4_lasso_only (3 feat) ---
+  [pnn | S4_lasso_only] best hp → CV-RMSE mean=0.216±0.015 km/s, test R²=0.771, RMSE=0.219
+  [mlffnn | S4_lasso_only] best hp → CV-RMSE mean=0.217±0.017 km/s, test R²=0.767, RMSE=0.222
+  [dffnn | S4_lasso_only] best hp → CV-RMSE mean=0.215±0.016 km/s, test R²=0.780, RMSE=0.215
+  [cnn1d | S4_lasso_only] best hp → CV-RMSE mean=0.231±0.021 km/s, test R²=0.743, RMSE=0.233
+
+  Best stacking scenario: S2_all (mean R²=0.792)
+
+[7/12] Meta-learners ...
+
+[8/12] Empirical baselines ...
+
+[9/12] Building master results table ...
+
+  Model ranking (seed 99):
+    1. hybrid_icnn                    R²=0.8412 RMSE=0.1829 km/s ★ DEPLOYED
+    2. pnn                            R²=0.8314 RMSE=0.1884 km/s 
+    3. ridge                          R²=0.8293 RMSE=0.1896 km/s 
+    4. icnn                           R²=0.8223 RMSE=0.1934 km/s 
+    5. dffnn                          R²=0.8080 RMSE=0.2011 km/s 
+    6. mlffnn                         R²=0.7854 RMSE=0.2126 km/s 
+    7. cnn1d                          R²=0.7451 RMSE=0.2317 km/s 
+    8. Greenberg-Castagna limestone   R²=0.5642 RMSE=0.3030 km/s 
+    9. Greenberg-Castagna shale       R²=0.5306 RMSE=0.3144 km/s 
+    10. Castagna mudrock               R²=0.2183 RMSE=0.4058 km/s 
+    11. Greenberg-Castagna sand        R²=0.1279 RMSE=0.4286 km/s 
+
+  Deployment (seed 99): hybrid_icnn
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\per_seed\ranking_seed_99.csv
+
+
+████████████████████████████████████████████████████████
+  SEED ITERATION 3/5  (seed = 123)
+████████████████████████████████████████████████████████
+
+[3/12] Train/test split (from supervised set) ...
+  Train=2918, Test=729 (all VS measured ✓)
+
+[4/12] Normalization ...
+
+[5/12] Feature selection scenarios ...
+
+  [BUILD-FS] Candidate logs (5): GR, RHOB, NPHI, PHIE, VP
+  [BUILD-FS] mRMR top_k = 3, LASSO α = 1.0000
+  [mRMR] top-3: VP, GR, NPHI
+  [LASSO] selected: NPHI, PHIE, VP
+  [BUILD-FS] Final scenarios:
+    S1_intersection  [2 feats, mRMR ∩ LASSO]: NPHI, VP
+    S2_all           [5 feats, No feature selection]: GR, RHOB, NPHI, PHIE, VP
+    S3_mrmr_only     [3 feats, mRMR top-3]: GR, NPHI, VP
+    S4_lasso_only    [3 feats, LASSO non-zero β (CV λ)]: NPHI, PHIE, VP
+
+[6/12] Base learners ...
+
+  --- S1_intersection (2 feat) ---
+  [pnn | S1_intersection] best hp → CV-RMSE mean=0.218±0.020 km/s, test R²=0.717, RMSE=0.242
+  [mlffnn | S1_intersection] best hp → CV-RMSE mean=0.219±0.019 km/s, test R²=0.732, RMSE=0.235
+  [dffnn | S1_intersection] best hp → CV-RMSE mean=0.213±0.015 km/s, test R²=0.723, RMSE=0.240
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+     [CNN1D] p=2 < kernel=3 → falling back to shallow NN
+  [cnn1d | S1_intersection] best hp → CV-RMSE mean=0.219±0.019 km/s, test R²=0.732, RMSE=0.235
+
+  --- S2_all (5 feat) ---
+  [pnn | S2_all] best hp → CV-RMSE mean=0.189±0.020 km/s, test R²=0.786, RMSE=0.211
+  [mlffnn | S2_all] best hp → CV-RMSE mean=0.204±0.022 km/s, test R²=0.758, RMSE=0.224
+  [dffnn | S2_all] best hp → CV-RMSE mean=0.199±0.021 km/s, test R²=0.754, RMSE=0.226
+  [cnn1d | S2_all] best hp → CV-RMSE mean=0.221±0.014 km/s, test R²=0.717, RMSE=0.242
+
+  --- S3_mrmr_only (3 feat) ---
+  [pnn | S3_mrmr_only] best hp → CV-RMSE mean=0.205±0.020 km/s, test R²=0.754, RMSE=0.226
+  [mlffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.020 km/s, test R²=0.763, RMSE=0.221
+  [dffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.203±0.019 km/s, test R²=0.758, RMSE=0.224
+  [cnn1d | S3_mrmr_only] best hp → CV-RMSE mean=0.226±0.013 km/s, test R²=0.711, RMSE=0.244
+
+  --- S4_lasso_only (3 feat) ---
+  [pnn | S4_lasso_only] best hp → CV-RMSE mean=0.205±0.019 km/s, test R²=0.752, RMSE=0.227
+  [mlffnn | S4_lasso_only] best hp → CV-RMSE mean=0.214±0.020 km/s, test R²=0.753, RMSE=0.226
+  [dffnn | S4_lasso_only] best hp → CV-RMSE mean=0.210±0.022 km/s, test R²=0.767, RMSE=0.220
+  [cnn1d | S4_lasso_only] best hp → CV-RMSE mean=0.217±0.016 km/s, test R²=0.738, RMSE=0.233
+
+  Best stacking scenario: S2_all (mean R²=0.754)
+
+[7/12] Meta-learners ...
+
+[8/12] Empirical baselines ...
+
+[9/12] Building master results table ...
+
+  Model ranking (seed 123):
+    1. hybrid_icnn                    R²=0.8004 RMSE=0.2033 km/s ★ DEPLOYED
+    2. pnn                            R²=0.7856 RMSE=0.2107 km/s 
+    3. icnn                           R²=0.7849 RMSE=0.2111 km/s 
+    4. ridge                          R²=0.7848 RMSE=0.2111 km/s 
+    5. mlffnn                         R²=0.7576 RMSE=0.2241 km/s 
+    6. dffnn                          R²=0.7539 RMSE=0.2257 km/s 
+    7. cnn1d                          R²=0.7173 RMSE=0.2420 km/s 
+    8. Greenberg-Castagna limestone   R²=0.5339 RMSE=0.3107 km/s 
+    9. Greenberg-Castagna shale       R²=0.5021 RMSE=0.3211 km/s 
+    10. Castagna mudrock               R²=0.1901 RMSE=0.4095 km/s 
+    11. Greenberg-Castagna sand        R²=0.1001 RMSE=0.4317 km/s 
+
+  Deployment (seed 123): hybrid_icnn
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\per_seed\ranking_seed_123.csv
+
+
+████████████████████████████████████████████████████████
+  SEED ITERATION 4/5  (seed = 2026)
+████████████████████████████████████████████████████████
+
+[3/12] Train/test split (from supervised set) ...
+  Train=2918, Test=729 (all VS measured ✓)
+
+[4/12] Normalization ...
+
+[5/12] Feature selection scenarios ...
+
+  [BUILD-FS] Candidate logs (5): GR, RHOB, NPHI, PHIE, VP
+  [BUILD-FS] mRMR top_k = 3, LASSO α = 1.0000
+  [mRMR] top-3: VP, GR, NPHI
+  [LASSO] selected: GR, NPHI, PHIE, VP
+[Warning: [BUILD-FS] Only 3 distinct feature sets across 4 scenarios.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('build_feature_scenarios', 'E:\VsPrediction_NEJ_v3\src\features\build_feature_scenarios.m', 93)" style="font-weight:bold">build_feature_scenarios</a> (<a href="matlab: opentoline('E:\VsPrediction_NEJ_v3\src\features\build_feature_scenarios.m',93,0)">line 93</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_pipeline_NEJ_FULL_EXCEL_LOCKED', 'E:\VsPrediction_NEJ_v3\main_pipeline_NEJ_FULL_EXCEL_LOCKED.m', 149)" style="font-weight:bold">main_pipeline_NEJ_FULL_EXCEL_LOCKED</a> (<a href="matlab: opentoline('E:\VsPrediction_NEJ_v3\main_pipeline_NEJ_FULL_EXCEL_LOCKED.m',149,0)">line 149</a>)] 
+  [BUILD-FS] Final scenarios:
+    S1_intersection  [3 feats, mRMR ∩ LASSO]: GR, NPHI, VP
+    S2_all           [5 feats, No feature selection]: GR, RHOB, NPHI, PHIE, VP
+    S3_mrmr_only     [3 feats, mRMR top-3]: GR, NPHI, VP
+    S4_lasso_only    [4 feats, LASSO non-zero β (CV λ)]: GR, NPHI, PHIE, VP
+
+[6/12] Base learners ...
+
+  --- S1_intersection (3 feat) ---
+  [pnn | S1_intersection] best hp → CV-RMSE mean=0.205±0.014 km/s, test R²=0.756, RMSE=0.232
+  [mlffnn | S1_intersection] best hp → CV-RMSE mean=0.204±0.011 km/s, test R²=0.768, RMSE=0.226
+  [dffnn | S1_intersection] best hp → CV-RMSE mean=0.208±0.009 km/s, test R²=0.761, RMSE=0.230
+  [cnn1d | S1_intersection] best hp → CV-RMSE mean=0.222±0.018 km/s, test R²=0.717, RMSE=0.250
+
+  --- S2_all (5 feat) ---
+  [pnn | S2_all] best hp → CV-RMSE mean=0.190±0.008 km/s, test R²=0.806, RMSE=0.207
+  [mlffnn | S2_all] best hp → CV-RMSE mean=0.201±0.014 km/s, test R²=0.766, RMSE=0.227
+  [dffnn | S2_all] best hp → CV-RMSE mean=0.196±0.010 km/s, test R²=0.792, RMSE=0.214
+  [cnn1d | S2_all] best hp → CV-RMSE mean=0.218±0.014 km/s, test R²=0.716, RMSE=0.250
+
+  --- S3_mrmr_only (3 feat) ---
+  [pnn | S3_mrmr_only] best hp → CV-RMSE mean=0.205±0.014 km/s, test R²=0.756, RMSE=0.232
+  [mlffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.204±0.011 km/s, test R²=0.768, RMSE=0.226
+  [dffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.208±0.009 km/s, test R²=0.761, RMSE=0.230
+  [cnn1d | S3_mrmr_only] best hp → CV-RMSE mean=0.222±0.019 km/s, test R²=0.718, RMSE=0.249
+
+  --- S4_lasso_only (4 feat) ---
+  [pnn | S4_lasso_only] best hp → CV-RMSE mean=0.198±0.010 km/s, test R²=0.788, RMSE=0.216
+  [mlffnn | S4_lasso_only] best hp → CV-RMSE mean=0.207±0.011 km/s, test R²=0.772, RMSE=0.224
+  [dffnn | S4_lasso_only] best hp → CV-RMSE mean=0.203±0.011 km/s, test R²=0.772, RMSE=0.224
+  [cnn1d | S4_lasso_only] best hp → CV-RMSE mean=0.222±0.017 km/s, test R²=0.719, RMSE=0.249
+
+  Best stacking scenario: S2_all (mean R²=0.770)
+
+[7/12] Meta-learners ...
+
+[8/12] Empirical baselines ...
+
+[9/12] Building master results table ...
+
+  Model ranking (seed 2026):
+    1. hybrid_icnn                    R²=0.8126 RMSE=0.2033 km/s practically tied
+    2. ridge                          R²=0.8099 RMSE=0.2048 km/s ★ DEPLOYED
+    3. icnn                           R²=0.8091 RMSE=0.2052 km/s practically tied
+    4. pnn                            R²=0.8063 RMSE=0.2067 km/s 
+    5. dffnn                          R²=0.7920 RMSE=0.2142 km/s 
+    6. mlffnn                         R²=0.7664 RMSE=0.2269 km/s 
+    7. cnn1d                          R²=0.7156 RMSE=0.2504 km/s 
+    8. Greenberg-Castagna limestone   R²=0.5335 RMSE=0.3207 km/s 
+    9. Greenberg-Castagna shale       R²=0.4956 RMSE=0.3335 km/s 
+    10. Castagna mudrock               R²=0.1869 RMSE=0.4234 km/s 
+    11. Greenberg-Castagna sand        R²=0.0996 RMSE=0.4456 km/s 
+
+  Deployment (seed 2026): ridge
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\per_seed\ranking_seed_2026.csv
+
+
+████████████████████████████████████████████████████████
+  SEED ITERATION 5/5  (seed = 42  ★ CANONICAL)
+████████████████████████████████████████████████████████
+
+[3/12] Train/test split (from supervised set) ...
+  Train=2918, Test=729 (all VS measured ✓)
+
+[4/12] Normalization ...
+
+[5/12] Feature selection scenarios ...
+
+  [BUILD-FS] Candidate logs (5): GR, RHOB, NPHI, PHIE, VP
+  [BUILD-FS] mRMR top_k = 3, LASSO α = 1.0000
+  [mRMR] top-3: VP, GR, NPHI
+  [LASSO] selected: GR, NPHI, PHIE, VP
+[Warning: [BUILD-FS] Only 3 distinct feature sets across 4 scenarios.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('build_feature_scenarios', 'E:\VsPrediction_NEJ_v3\src\features\build_feature_scenarios.m', 93)" style="font-weight:bold">build_feature_scenarios</a> (<a href="matlab: opentoline('E:\VsPrediction_NEJ_v3\src\features\build_feature_scenarios.m',93,0)">line 93</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_pipeline_NEJ_FULL_EXCEL_LOCKED', 'E:\VsPrediction_NEJ_v3\main_pipeline_NEJ_FULL_EXCEL_LOCKED.m', 149)" style="font-weight:bold">main_pipeline_NEJ_FULL_EXCEL_LOCKED</a> (<a href="matlab: opentoline('E:\VsPrediction_NEJ_v3\main_pipeline_NEJ_FULL_EXCEL_LOCKED.m',149,0)">line 149</a>)] 
+  [BUILD-FS] Final scenarios:
+    S1_intersection  [3 feats, mRMR ∩ LASSO]: GR, NPHI, VP
+    S2_all           [5 feats, No feature selection]: GR, RHOB, NPHI, PHIE, VP
+    S3_mrmr_only     [3 feats, mRMR top-3]: GR, NPHI, VP
+    S4_lasso_only    [4 feats, LASSO non-zero β (CV λ)]: GR, NPHI, PHIE, VP
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\feature_selection_scenarios.csv
+  [PERM-IMP] ranking (Δ R² baseline=0.756):
+    VP       : +1.1147
+    PHIE     : +0.5534
+    RHOB     : +0.2588
+    GR       : +0.0071
+    NPHI     : +0.0008
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\permutation_importance.csv
+
+[6/12] Base learners ...
+
+  --- S1_intersection (3 feat) ---
+  [pnn | S1_intersection] best hp → CV-RMSE mean=0.214±0.013 km/s, test R²=0.818, RMSE=0.194
+  [mlffnn | S1_intersection] best hp → CV-RMSE mean=0.216±0.011 km/s, test R²=0.809, RMSE=0.199
+  [dffnn | S1_intersection] best hp → CV-RMSE mean=0.212±0.014 km/s, test R²=0.820, RMSE=0.193
+  [cnn1d | S1_intersection] best hp → CV-RMSE mean=0.232±0.009 km/s, test R²=0.774, RMSE=0.216
+
+  --- S2_all (5 feat) ---
+  [pnn | S2_all] best hp → CV-RMSE mean=0.196±0.017 km/s, test R²=0.848, RMSE=0.177
+  [mlffnn | S2_all] best hp → CV-RMSE mean=0.211±0.012 km/s, test R²=0.826, RMSE=0.190
+  [dffnn | S2_all] best hp → CV-RMSE mean=0.205±0.015 km/s, test R²=0.831, RMSE=0.187
+  [cnn1d | S2_all] best hp → CV-RMSE mean=0.228±0.009 km/s, test R²=0.791, RMSE=0.208
+
+  --- S3_mrmr_only (3 feat) ---
+  [pnn | S3_mrmr_only] best hp → CV-RMSE mean=0.214±0.013 km/s, test R²=0.818, RMSE=0.194
+  [mlffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.216±0.011 km/s, test R²=0.809, RMSE=0.199
+  [dffnn | S3_mrmr_only] best hp → CV-RMSE mean=0.212±0.014 km/s, test R²=0.820, RMSE=0.193
+  [cnn1d | S3_mrmr_only] best hp → CV-RMSE mean=0.233±0.011 km/s, test R²=0.773, RMSE=0.217
+
+  --- S4_lasso_only (4 feat) ---
+  [pnn | S4_lasso_only] best hp → CV-RMSE mean=0.205±0.017 km/s, test R²=0.837, RMSE=0.184
+  [mlffnn | S4_lasso_only] best hp → CV-RMSE mean=0.213±0.013 km/s, test R²=0.821, RMSE=0.193
+  [dffnn | S4_lasso_only] best hp → CV-RMSE mean=0.209±0.017 km/s, test R²=0.829, RMSE=0.188
+  [cnn1d | S4_lasso_only] best hp → CV-RMSE mean=0.231±0.010 km/s, test R²=0.779, RMSE=0.214
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\all_scenarios_performance.csv
+
+  Best stacking scenario: S2_all (mean R²=0.824)
+
+[7/12] Meta-learners ...
+
+[8/12] Empirical baselines ...
+
+[9/12] Building master results table ...
+
+  Model ranking (seed 42):
+    1. hybrid_icnn                    R²=0.8629 RMSE=0.1686 km/s ★ DEPLOYED
+    2. ridge                          R²=0.8513 RMSE=0.1756 km/s 
+    3. pnn                            R²=0.8481 RMSE=0.1775 km/s 
+    4. icnn                           R²=0.8353 RMSE=0.1848 km/s 
+    5. dffnn                          R²=0.8307 RMSE=0.1874 km/s 
+    6. mlffnn                         R²=0.8262 RMSE=0.1899 km/s 
+    7. cnn1d                          R²=0.7912 RMSE=0.2081 km/s 
+    8. Greenberg-Castagna limestone   R²=0.6084 RMSE=0.2849 km/s 
+    9. Greenberg-Castagna shale       R²=0.5764 RMSE=0.2964 km/s 
+    10. Castagna mudrock               R²=0.2735 RMSE=0.3881 km/s 
+    11. Greenberg-Castagna sand        R²=0.1852 RMSE=0.4110 km/s 
+
+  Deployment (seed 42): hybrid_icnn
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\per_seed\ranking_seed_42.csv
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\table3_test_performance.csv
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\final_model_ranking.xlsx
+
+
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\multi_seed_robustness.csv
+
+========================================================
+  MULTI-SEED AGGREGATE (n=5 seeds: 7    99   123  2026    42)
+========================================================
+  Model                          R² (mean ± std)        RMSE (mean ± std, km/s)
+  --------------------------------------------------------------------------------
+  hybrid_icnn                    0.8205 ± 0.0313       0.1941 ± 0.0179
+  ridge                          0.8116 ± 0.0294       0.1990 ± 0.0161
+  pnn                            0.8107 ± 0.0287       0.1995 ± 0.0158
+  icnn                           0.8077 ± 0.0220       0.2013 ± 0.0118
+  dffnn                          0.7903 ± 0.0309       0.2099 ± 0.0157
+  mlffnn                         0.7768 ± 0.0308       0.2167 ± 0.0164
+  cnn1d                          0.7301 ± 0.0410       0.2382 ± 0.0197
+  Greenberg-Castagna limestone   0.5488 ± 0.0396       0.3085 ± 0.0154
+  Greenberg-Castagna shale       0.5126 ± 0.0440       0.3206 ± 0.0165
+  Castagna mudrock               0.1999 ± 0.0519       0.4109 ± 0.0157
+  Greenberg-Castagna sand        0.1105 ± 0.0528       0.4333 ± 0.0153
+
+  Top-2 comparison:
+    hybrid_icnn vs ridge
+    ΔR²_mean = 0.0089,  combined σ = 0.0429
+    → PRACTICALLY TIED: difference within seed-to-seed variability.
+    → Consider reporting both as co-leaders; prefer simpler for deployment.
+========================================================
+
+  Deployment winners across seeds: hybrid_icnn, pnn, ridge
+  ⚠  Inconsistent deployment selection across seeds — review for manuscript framing.
+
+[10/12] Deploying hybrid_icnn to NEJ-2 (canonical seed = 42) ...
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\nonphysical_analysis.csv
+  [IO] Wrote: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\tables\predictions_NEJ-2.csv
+
+[11/12] Publication figures ...
+
+========================================================
+  Generating publication-quality figures
+  Output: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\figures_publication
+========================================================
+  [FIG-PUB] Fig4_model_ranking_pub.png/.pdf saved
+  [FIG-PUB] Fig5_NEJ-1_multitrack_pub.png/.pdf saved
+  [FIG-PUB] Fig6_NEJ-2_multitrack_pub.png/.pdf saved
+  [FIG-PUB] Fig7_NEJ-2_Vp-Vs_crossplot_pub.png/.pdf saved
+  [FIG-PUB] Fig8_uncertainty_pub.png/.pdf saved
+  [FIG-PUB] FigS_NEJ-2_nonphysical_diagnostic_pub.png/.pdf saved
+========================================================
+  ✓ Publication figures complete (Fig4 + Fig6 ok).
+========================================================
+
+
+[12/12] Run summary + QC ...
+  [AUDIT] Run summary saved: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114\audit\run_summary.txt
+
+========================================================
+  QC GATE: assert_run_consistency
+========================================================
+  Warnings:
+    ⚠  Feature scenarios partially overlap: 3/4 distinct sets
+  ✓ All HARD checks passed.
+  Run is ready for manuscript-level audit (with warnings — review above).
+========================================================
+
+
+========================================================
+   Pipeline COMPLETE.
+   Run folder: E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114
+   Multi-seed robustness: tables/multi_seed_robustness.csv
+========================================================
+

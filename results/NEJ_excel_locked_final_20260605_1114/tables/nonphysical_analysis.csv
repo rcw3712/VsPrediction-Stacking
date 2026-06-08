@@ -1,0 +1,4 @@
+Stratum,N,n_nu_out,pct_nu_out,n_G_neg,pct_G_neg,n_K_neg,pct_K_neg,n_any,pct_any
+All samples,2085,65,3.11750599520384,0,0,0,0,65,3.11750599520384
+OOD-flagged (|z|>3),281,50,17.7935943060498,0,0,0,0,50,17.7935943060498
+Non-OOD samples,1804,15,0.831485587583149,0,0,0,0,15,0.831485587583149

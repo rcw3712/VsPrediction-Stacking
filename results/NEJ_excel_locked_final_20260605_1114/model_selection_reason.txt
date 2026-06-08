@@ -1,0 +1,4 @@
+Tie threshold: ΔR² < 0.0050
+Top model: hybrid_icnn (R²=0.8629)
+2nd model: ridge (R²=0.8513, ΔR²=0.0115)
+hybrid_icnn exceeded all other models beyond the tie threshold — selected directly.

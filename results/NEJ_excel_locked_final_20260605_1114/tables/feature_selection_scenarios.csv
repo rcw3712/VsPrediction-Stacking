@@ -1,0 +1,5 @@
+scenario_id,scenario_name,selected_features,n_features,source_method,notes
+S1_intersection,mRMR ∩ LASSO,"GR, NPHI, VP",3,mRMR ∩ LASSO,
+S2_all,All features (no FS),"GR, RHOB, NPHI, PHIE, VP",5,No feature selection,
+S3_mrmr_only,mRMR-only,"GR, NPHI, VP",3,mRMR top-3,
+S4_lasso_only,LASSO-only,"GR, NPHI, PHIE, VP",4,LASSO non-zero β (CV λ),

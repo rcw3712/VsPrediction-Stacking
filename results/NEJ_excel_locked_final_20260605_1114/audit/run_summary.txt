@@ -1,0 +1,84 @@
+========================================================================
+  RUN SUMMARY — Vs Prediction Pipeline (NEJ_v3 EXCEL LOCKED)
+========================================================================
+
+TIMESTAMP
+  Run started: 05-Jun-2026 12:30:44
+
+INPUTS
+  Train file:    data\NEJ-1.xlsx
+  Blind file:    data\NEJ-2.xlsx
+  Sheet name:    Sheet1
+
+SAMPLE COUNTS
+  NEJ-1 raw rows:           109779
+  NEJ-1 after cleaning:     6964
+  NEJ-2 raw rows:           7660
+  NEJ-2 after cleaning:     2085
+
+TARGET VS (NEJ-1) — METHODOLOGY GUARD
+  VS measured:                       3647
+  VS missing:                        3317
+  VS imputed for supervised learning: 0   ← MUST be 0
+  Supervised samples (measured VS): 3647
+
+DEPTH RANGES (m, after preprocessing)
+  NEJ-1: [946.86, 2008.02]
+  NEJ-2: [311.35, 628.95]
+
+TRAIN/TEST SPLIT (NEJ-1)
+  Master seed:  42
+  N train:      2918
+  N test:       729
+
+FEATURE-SELECTION SCENARIOS
+  S1_intersection  [3]: GR, NPHI, VP
+  S2_all           [5]: GR, RHOB, NPHI, PHIE, VP
+  S3_mrmr_only     [3]: GR, NPHI, VP
+  S4_lasso_only    [4]: GR, NPHI, PHIE, VP
+
+MODEL RANKING (test set, sorted by R²)
+  Rank Model                          R²         RMSE (km/s)  Note
+  --------------------------------------------------------------------------------
+  1    hybrid_icnn                    0.8629     0.1686       ★ DEPLOYED
+  2    ridge                          0.8513     0.1756       
+  3    pnn                            0.8481     0.1775       
+  4    icnn                           0.8353     0.1848       
+  5    dffnn                          0.8307     0.1874       
+  6    mlffnn                         0.8262     0.1899       
+  7    cnn1d                          0.7912     0.2081       
+  8    Greenberg-Castagna limestone   0.6084     0.2849       
+  9    Greenberg-Castagna shale       0.5764     0.2964       
+  10   Castagna mudrock               0.2735     0.3881       
+  11   Greenberg-Castagna sand        0.1852     0.4110       
+
+DEPLOYMENT MODEL
+  Selected: hybrid_icnn
+
+SELECTION REASONING
+  Tie threshold: ΔR² < 0.0050
+  Top model: hybrid_icnn (R²=0.8629)
+  2nd model: ridge (R²=0.8513, ΔR²=0.0115)
+  hybrid_icnn exceeded all other models beyond the tie threshold — selected directly.
+
+NEJ-2 DEPLOYMENT STATISTICS
+  Total samples:       2085
+  OOD (|z|>3):         281 (13.5%)
+  Clipped to [0.2, 4.5]: 0 (0.0%)
+
+NON-PHYSICAL ANALYSIS
+  Total non-physical:        65 (3.1%)
+  Within OOD:                50
+  Within non-OOD:            15
+  Silent failures (non-OOD): 23.1% of total NP
+
+METRIC DOMAIN
+  All RMSE/MAE/Bias/MAPE: physical_kms
+  (z-score metrics, if any, are in debug_metrics_zscore.csv)
+
+OUTPUT FOLDER
+  E:\VsPrediction_NEJ_v3\results\NEJ_excel_locked_final_20260605_1114
+
+========================================================================
+  END OF RUN SUMMARY
+========================================================================
