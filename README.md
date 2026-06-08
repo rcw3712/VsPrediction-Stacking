@@ -17,7 +17,7 @@ assessed across **five random seeds** to quantify reproducibility.
 
 This repository accompanies:
 
-> Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., Sarkowi, M. (2026).
+> Wibowo, R.C., Handoyo, Kumalasari, I.N., Winardhy, I.S., Amijaya, H., Normansyah, Aristoteles, Sarkowi, M. (2026).
 > *Hybrid I-CNN Stacking Ensemble for Shear-Wave Velocity Prediction from Conventional
 > Well Logs: A Multi-Seed Robustness Study.* **Artificial Intelligence in Geosciences**.
 > DOI: *(pending — update on acceptance)*.
